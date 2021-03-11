@@ -30,6 +30,10 @@ func get_options() -> Dictionary:
 		"custom_target_position": float($VSplitContainer/VBoxContainer/Options/HBoxContainer2/CustomTargetLineEdit.text),
 	}
 
+func set_script_text(new_text: String):
+	_editor.text = new_text
+	emit_signal("new_control_system", new_text)
+
 func get_script_text():
 	return _editor.text
 

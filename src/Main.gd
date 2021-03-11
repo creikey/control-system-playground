@@ -96,3 +96,10 @@ func _on_CopyButton_pressed():
 		JavaScript.eval(str("setTextbox(\"", Marshalls.utf8_to_base64(record_text), "\")"))
 	else:
 		OS.clipboard = record_text
+
+
+func _on_PutScript_pressed():
+	JavaScript.eval(str("setScriptTextbox(\"", Marshalls.utf8_to_base64(_ui.get_script_text()), "\")"))
+
+func _on_ReadScript_pressed():
+	_ui.set_script_text(Marshalls.base64_to_utf8(JavaScript.eval("getScriptTextbox()")))
