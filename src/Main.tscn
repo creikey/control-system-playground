@@ -1,0 +1,182 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Box.gd" type="Script" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://TargetIndicator.png" type="Texture" id=3]
+[ext_resource path="res://SourceCodePro-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://ControlSystemEditor.gd" type="Script" id=5]
+[ext_resource path="res://StatDisplay.tscn" type="PackedScene" id=6]
+[ext_resource path="res://CustomTargetLineEdit.gd" type="Script" id=7]
+[ext_resource path="res://Floor.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+VSplitContainer/constants/autohide = 0
+VSplitContainer/constants/separation = 12
+VSplitContainer/icons/grabber = null
+VSplitContainer/styles/bg = null
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Floor" type="Node2D" parent="."]
+position = Vector2( 350, 650 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+margin_left = -350.0
+margin_top = -50.0
+margin_right = 350.0
+margin_bottom = 50.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TargetPointIndicator" type="Sprite" parent="Floor"]
+position = Vector2( 0, -50 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, 10 )
+
+[node name="Box" type="Node2D" parent="."]
+position = Vector2( 350, 600 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="Box"]
+margin_left = -25.0
+margin_top = -50.0
+margin_right = 25.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
+_stat_display_pack = ExtResource( 6 )
+
+[node name="VSplitContainer" type="VSplitContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+split_offset = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/VSplitContainer"]
+margin_right = 700.0
+margin_bottom = 538.0
+size_flags_vertical = 3
+theme = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextEdit" type="TextEdit" parent="UI/VSplitContainer/VBoxContainer"]
+margin_right = 700.0
+margin_bottom = 388.0
+size_flags_vertical = 3
+text = "extends ControlSystem
+
+# state variables go here
+var t = 0.0
+
+func compute_output(error: float, timestep: float) -> float:
+	# put your code here!
+	t += timestep
+	return 500.0 * sin(t)
+"
+highlight_current_line = true
+syntax_highlighting = true
+draw_tabs = true
+smooth_scrolling = true
+wrap_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReloadButton" type="Button" parent="UI/VSplitContainer/VBoxContainer"]
+margin_top = 392.0
+margin_right = 700.0
+margin_bottom = 414.0
+text = "Reload"
+
+[node name="Options" type="VBoxContainer" parent="UI/VSplitContainer/VBoxContainer"]
+margin_top = 418.0
+margin_right = 700.0
+margin_bottom = 488.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VSplitContainer/VBoxContainer/Options"]
+margin_right = 700.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="UI/VSplitContainer/VBoxContainer/Options/HBoxContainer"]
+margin_top = 12.0
+margin_right = 348.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+text = "Randomize Target Position:"
+
+[node name="RandomizeStartCheckButton" type="CheckButton" parent="UI/VSplitContainer/VBoxContainer/Options/HBoxContainer"]
+margin_left = 352.0
+margin_right = 700.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/VSplitContainer/VBoxContainer/Options"]
+margin_top = 44.0
+margin_right = 700.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="UI/VSplitContainer/VBoxContainer/Options/HBoxContainer2"]
+margin_top = 5.0
+margin_right = 348.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Custom Target Position"
+
+[node name="CustomTargetLineEdit" type="LineEdit" parent="UI/VSplitContainer/VBoxContainer/Options/HBoxContainer2"]
+margin_left = 352.0
+margin_right = 700.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+text = "350"
+placeholder_text = "between 25 and 675"
+script = ExtResource( 7 )
+
+[node name="Stats" type="VBoxContainer" parent="UI/VSplitContainer/VBoxContainer"]
+margin_top = 492.0
+margin_right = 700.0
+margin_bottom = 492.0
+
+[node name="Info" type="Label" parent="UI/VSplitContainer/VBoxContainer"]
+margin_top = 496.0
+margin_right = 700.0
+margin_bottom = 512.0
+text = "Get within 5 error for 3 seconds!"
+align = 1
+
+[node name="CopyButton" type="Button" parent="UI/VSplitContainer/VBoxContainer"]
+margin_top = 516.0
+margin_right = 700.0
+margin_bottom = 538.0
+text = "Copy stats to Clipboard (paste to google sheets)"
+
+[node name="Control" type="Control" parent="UI/VSplitContainer"]
+margin_top = 550.0
+margin_right = 700.0
+margin_bottom = 700.0
+rect_min_size = Vector2( 0, 150 )
+[connection signal="new_control_system" from="UI" to="." method="_on_UI_new_control_system"]
+[connection signal="pressed" from="UI/VSplitContainer/VBoxContainer/ReloadButton" to="UI" method="_on_ReloadButton_pressed"]
+[connection signal="pressed" from="UI/VSplitContainer/VBoxContainer/CopyButton" to="." method="_on_CopyButton_pressed"]

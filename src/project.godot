@@ -1,0 +1,62 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Box",
+"language": "GDScript",
+"path": "res://Box.gd"
+}, {
+"base": "Reference",
+"class": "ControlSystem",
+"language": "GDScript",
+"path": "res://ControlSystem.gd"
+}, {
+"base": "HBoxContainer",
+"class": "StatDisplay",
+"language": "GDScript",
+"path": "res://StatDisplay.gd"
+}, {
+"base": "CanvasLayer",
+"class": "UI",
+"language": "GDScript",
+"path": "res://ControlSystemEditor.gd"
+} ]
+_global_script_class_icons={
+"Box": "",
+"ControlSystem": "",
+"StatDisplay": "",
+"UI": ""
+}
+
+[application]
+
+config/name="Control System Playground"
+run/main_scene="res://Main.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=700
+window/size/height=700
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[physics]
+
+2d/default_gravity=300
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+environment/default_environment="res://default_env.tres"
