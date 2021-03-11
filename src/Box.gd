@@ -8,8 +8,9 @@ var current_control_system: ControlSystem = ControlSystem.new()
 var target_point: float = 350.0
 var successful: bool = false
 
+var friction: float = 0.0
 var velocity: float = 0.0
-var accel: float = 0.0
+var last_control_system_output: float = 0.0
 
 func reset():
 	velocity = 0.0
@@ -22,11 +23,20 @@ func _process(delta):
 func get_control_system_error() -> float:
 	return target_point - global_position.x
 
+func get_control_system_position() -> float:
+	return global_position.x
+
 func _physics_process(delta: float):
 	if successful:
 		return
-	accel = current_control_system.compute_output(get_control_system_error(), delta)
-	velocity += accel * delta
+	last_control_system_output = current_control_system.compute_output(get_control_system_error(), delta)
+	velocity += last_control_system_output * delta
+	
+	var frictional_accel = -sign(velocity) * friction
+	if abs(frictional_accel * delta) > abs(velocity):
+		frictional_accel = -velocity / delta
+	velocity += frictional_accel * delta
+	
 	global_position.x += velocity * delta
 	if global_position.x > 700.0 - 25.0:
 		velocity *= -0.8

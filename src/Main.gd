@@ -5,10 +5,11 @@ onready var _target_point_indicator: Node2D = $Floor/TargetPointIndicator
 onready var _ui: UI = $UI
 
 var _default_stats: Dictionary = {
-	"score": 1000.0,
 	"time": 0.0,
+	"error": 0.0,
 	"velocity": 0.0,
-	"control_system_output": 0.0,
+	"output": 0.0,
+	"score": 1000.0,
 	"successful_countdown": 3.0,
 	"successful": false,
 }
@@ -45,9 +46,10 @@ func _physics_process(delta: float):
 	else:
 		_stats["successful_countdown"] = 3.0
 	_stats["time"] += delta
-	_stats["score"] -= abs(err) * delta
+	_stats["error"] = _box.get_control_system_error()
 	_stats["velocity"] = _box.velocity
-	_stats["control_system_output"] = _box.accel
+	_stats["output"] = _box.last_control_system_output
+	_stats["score"] -= abs(err) * delta
 	_stats_record.append(_stats.duplicate(true))
 	if _stats_record.size() > 60 * 100:
 		OS.alert("YOU BEEN RUNNING THIS TOO LONG, IT'LL TAKE UP TOO MUCH MEMORY AND CRASH YOUR COMPUTER")
@@ -81,6 +83,7 @@ func reset():
 		self._target_point = opts["custom_target_position"]
 	_stats = _default_stats.duplicate(true)
 	_ui.stats = _stats
+	_box.friction = opts["friction"]
 	_box.reset()
 	_stats_record.clear()
 	$Floor.reset()

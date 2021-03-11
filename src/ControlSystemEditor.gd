@@ -28,6 +28,7 @@ func get_options() -> Dictionary:
 	return {
 		"randomize_target_position": $VSplitContainer/VBoxContainer/Options/HBoxContainer/RandomizeStartCheckButton.pressed,
 		"custom_target_position": float($VSplitContainer/VBoxContainer/Options/HBoxContainer2/CustomTargetLineEdit.text),
+		"friction": float($VSplitContainer/VBoxContainer/Options/HBoxContainer3/FrictionLineEdit.text),
 	}
 
 func set_script_text(new_text: String):
@@ -44,5 +45,5 @@ func _process(_delta):
 	for stat_display in _stats_vbox.get_children():
 		var new_stat_value = stats[stat_display.stat_name_label.text]
 		if new_stat_value is float:
-			new_stat_value = stepify(new_stat_value, 0.01)
+			new_stat_value = stepify(new_stat_value, 0.1)
 		stat_display.stat_value_label.text = str(new_stat_value)

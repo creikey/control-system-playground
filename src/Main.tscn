@@ -91,7 +91,7 @@ __meta__ = {
 
 [node name="TextEdit" type="TextEdit" parent="UI/VSplitContainer/VBoxContainer"]
 margin_right = 700.0
-margin_bottom = 362.0
+margin_bottom = 332.0
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
 text = "extends ControlSystem
@@ -115,9 +115,9 @@ __meta__ = {
 }
 
 [node name="WebScriptWorkarounds" type="HBoxContainer" parent="UI/VSplitContainer/VBoxContainer"]
-margin_top = 366.0
+margin_top = 336.0
 margin_right = 700.0
-margin_bottom = 388.0
+margin_bottom = 358.0
 script = ExtResource( 9 )
 
 [node name="PutScript" type="Button" parent="UI/VSplitContainer/VBoxContainer/WebScriptWorkarounds"]
@@ -134,13 +134,13 @@ size_flags_horizontal = 3
 text = "Read script from textbox"
 
 [node name="ReloadButton" type="Button" parent="UI/VSplitContainer/VBoxContainer"]
-margin_top = 392.0
+margin_top = 362.0
 margin_right = 700.0
-margin_bottom = 414.0
+margin_bottom = 384.0
 text = "Reload"
 
 [node name="Options" type="VBoxContainer" parent="UI/VSplitContainer/VBoxContainer"]
-margin_top = 418.0
+margin_top = 388.0
 margin_right = 700.0
 margin_bottom = 488.0
 
@@ -179,6 +179,27 @@ margin_right = 700.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
 text = "350"
+placeholder_text = "between 25 and 675"
+script = ExtResource( 7 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/VSplitContainer/VBoxContainer/Options"]
+margin_top = 74.0
+margin_right = 700.0
+margin_bottom = 100.0
+
+[node name="Label" type="Label" parent="UI/VSplitContainer/VBoxContainer/Options/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 348.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Friction"
+
+[node name="FrictionLineEdit" type="LineEdit" parent="UI/VSplitContainer/VBoxContainer/Options/HBoxContainer3"]
+margin_left = 352.0
+margin_right = 700.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+text = "100"
 placeholder_text = "between 25 and 675"
 script = ExtResource( 7 )
 
