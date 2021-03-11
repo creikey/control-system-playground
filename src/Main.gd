@@ -91,4 +91,8 @@ func _on_UI_new_control_system(script_text):
 
 
 func _on_CopyButton_pressed():
-	OS.clipboard = _get_stats_record_tsv()
+	var record_text: String = _get_stats_record_tsv()
+	if OS.get_name() == "HTML5":
+		JavaScript.eval(str("setTextbox(\"", Marshalls.utf8_to_base64(record_text), "\")"))
+	else:
+		OS.clipboard = record_text
