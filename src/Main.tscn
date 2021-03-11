@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Box.gd" type="Script" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://CustomTargetLineEdit.gd" type="Script" id=7]
 [ext_resource path="res://Floor.gd" type="Script" id=8]
 [ext_resource path="res://WebScriptWorkarounds.gd" type="Script" id=9]
+[ext_resource path="res://TextEdit.gd" type="Script" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 12
@@ -20,6 +21,11 @@ VSplitContainer/constants/autohide = 0
 VSplitContainer/constants/separation = 12
 VSplitContainer/icons/grabber = null
 VSplitContainer/styles/bg = null
+
+[sub_resource type="DynamicFont" id=3]
+size = 12
+use_mipmaps = true
+font_data = ExtResource( 4 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -87,6 +93,7 @@ __meta__ = {
 margin_right = 700.0
 margin_bottom = 362.0
 size_flags_vertical = 3
+custom_fonts/font = SubResource( 3 )
 text = "extends ControlSystem
 
 # state variables go here
@@ -102,6 +109,7 @@ syntax_highlighting = true
 draw_tabs = true
 smooth_scrolling = true
 wrap_enabled = true
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
